@@ -1,13 +1,14 @@
-export function fetchCountries(countryName) {
-    fetch(`https://restcountries.com/v3.1/name/${countryName}?fields=name,capital,population,flags,languages`)
+import Notiflix from "notiflix";
+
+const BASE_URL = 'https://restcountries.com/v3.1/';
+const OPTIONS = 'name,capital,population,flags,languages';
+
+export default function fetchCountries(countryName) {
+    return fetch(`${BASE_URL}name/${countryName}?fields=${OPTIONS}`)
     .then(response => {
         if (!response.ok) {
-            Notiflix.Notify.failure('404 (Not found)');
+            Notiflix.Notify.failure('Oops, there is no country with that name');
         }
-        return response.json();
+    return response.json();
     })
-    .then((country) => {
-        createMarkup(country)
-    })
-    ;
-} 
+}
